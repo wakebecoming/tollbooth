@@ -1,0 +1,8 @@
+# x402 core + FastAPI server + EVM schemes (official SDK, v2)
+x402[fastapi,evm]==2.25.0
+fastapi==0.142.4
+uvicorn[standard]==0.38.0
+# wallet / signing for buyer script + test wallet generation
+eth-account==0.13.7
+# HTTP client for the buyer script
+httpx==0.28.1

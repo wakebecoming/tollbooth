@@ -1,0 +1,40 @@
+=== REQUEST ===
+POST http://localhost:8000/brief/order
+Body: {"topic":"bounties","nonce":"demo-nonce-001"}
+(no payment headers — expecting 402)
+
+=== RESPONSE ===
+HTTP/1.1 402 Payment Required
+date: Sun, 11 Oct 2026 11:24:05 GMT
+server: uvicorn
+content-type: application/json
+payment-required: eyJ4NDAyVmVyc2lvbiI6MiwiZXJyb3IiOiJQYXltZW50IHJlcXVpcmVkIiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2JyaWVmL29yZGVyIiwiZGVzY3JpcHRpb24iOiJ3YWtlYW5kbm9ydGggZWFybi1maXJzdCBicmllZiAoc3BlYyB2MSk6IGRldGVybWluaXN0aWMgYnJpZWYgcGVyICh0b3BpYywgbm9uY2UpIHdpdGggaW5saW5lIHJlY2VpcHQgYXR0ZXN0YXRpb24uIiwibWltZVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sImFjY2VwdHMiOlt7InNjaGVtZSI6ImV4YWN0IiwibmV0d29yayI6ImVpcDE1NTo4NDUzMiIsImFzc2V0IjoiMHgwMzZDYkQ1Mzg0MmM1NDI2NjM0ZTc5Mjk1NDFlQzIzMThmM2RDRjdlIiwiYW1vdW50IjoiMjAwMDAwMCIsInBheVRvIjoiMHhEMThBNWQ5ZEJhNjI4RDQ4OWFBMzAxRTk1MDU2MDQ5Q0EzMzk5OUIwIiwibWF4VGltZW91dFNlY29uZHMiOjMwMCwiZXh0cmEiOnsibmFtZSI6IlVTREMiLCJ2ZXJzaW9uIjoiMiIsInBheW1lbnRGbG93IjoidXBmcm9udCJ9fV19
+cache-control: no-store
+content-length: 2
+
+{}
+=== DECODED PAYMENT-REQUIRED (x402 v2) ===
+{
+  "x402Version": 2,
+  "error": "Payment required",
+  "resource": {
+    "url": "http://localhost:8000/brief/order",
+    "description": "wakeandnorth earn-first brief (spec v1): deterministic brief per (topic, nonce) with inline receipt attestation.",
+    "mimeType": "application/json"
+  },
+  "accepts": [
+    {
+      "scheme": "exact",
+      "network": "eip155:84532",
+      "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      "amount": "2000000",
+      "payTo": "0xD18A5d9dBa628D489aA301E95056049CA33999B0",
+      "maxTimeoutSeconds": 300,
+      "extra": {
+        "name": "USDC",
+        "version": "2",
+        "paymentFlow": "upfront"
+      }
+    }
+  ]
+}

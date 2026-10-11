@@ -1,0 +1,11 @@
+=== REQUEST ===
+GET http://localhost:8000/.well-known/x402
+
+=== RESPONSE ===
+HTTP/1.1 200 OK
+date: Sun, 11 Oct 2026 11:24:09 GMT
+server: uvicorn
+content-length: 1128
+content-type: application/json
+
+{"operator":"wakeandnorth","description":"Paid earn-first brief endpoint: an agent pays 2 USDC and receives a bounty/opportunity brief with claim-level citations and on-chain delivery attestation.","x402_version":2,"endpoints":{"brief":{"method":"POST","path":"/v1/brief","scheme":"exact","price":"$2.00","network":"eip155:84532","asset":"0x036CbD53842c5426634e7929541eC2318f3dCF7e","payTo":"0xD18A5d9dBa628D489aA301E95056049CA33999B0","paymentFlow":"upfront","maxTimeoutSeconds":300},"brief_order":{"method":"POST","path":"/brief/order","scheme":"exact","price":"$2.00","network":"eip155:84532","asset":"0x036CbD53842c5426634e7929541eC2318f3dCF7e","payTo":"0xD18A5d9dBa628D489aA301E95056049CA33999B0","paymentFlow":"upfront","maxTimeoutSeconds":300,"body":{"topic":"str (required, non-empty)","nonce":"str (required, non-empty)"},"spec":"v1 deterministic brief per (topic, nonce)"},"catalog":{"method":"GET","path":"/catalog","price":"free"},"sample":{"method":"GET","path":"/v1/brief/sample","price":"free"}},"facilitator":"https://x402.org/facilitator","receipt":"PAYMENT-RESPONSE header + receipt object in brief JSON body"}

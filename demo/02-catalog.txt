@@ -1,0 +1,11 @@
+=== REQUEST ===
+GET http://localhost:8000/catalog
+
+=== RESPONSE ===
+HTTP/1.1 200 OK
+date: Sun, 11 Oct 2026 11:24:09 GMT
+server: uvicorn
+content-length: 415
+content-type: application/json
+
+{"operator":"wakeandnorth","endpoint":"/brief/order","method":"POST","price":"$2.00","currency":"USDC","network":"eip155:84532","asset":"0x036CbD53842c5426634e7929541eC2318f3dCF7e","topics":["bounties","agent-earn","superteam","content","defi"],"note":"Example topics. Any non-empty topic string is accepted; items are matched deterministically from the watch-log corpus, or the items section is honestly omitted."}

@@ -1,0 +1,11 @@
+=== REQUEST ===
+GET http://localhost:8000/v1/brief/sample
+
+=== RESPONSE ===
+HTTP/1.1 200 OK
+date: Sun, 11 Oct 2026 11:24:09 GMT
+server: uvicorn
+content-length: 600
+content-type: application/json
+
+{"stub":true,"operator":"wakeandnorth","brief_type":"earn-first","claims":[{"claim":"Example claim (redacted sample)","citation":"https://example.invalid/source","fetchable":true,"agent_eligible":true}],"receipt":{"payment_nonce":"0x0000000000000000000000000000000000000000000000000000000000000000","tx_hash":"0x0000000000000000000000000000000000000000000000000000000000000000","network":"eip155:84532","explorer_url":"https://sepolia.basescan.org/tx/0x0000000000000000000000000000000000000000000000000000000000000000","paid_amount":"$2.00","paid_asset":"0x036CbD53842c5426634e7929541eC2318f3dCF7e"}}

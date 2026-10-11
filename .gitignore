@@ -1,0 +1,9 @@
+# never commit keys
+wallets/
+*.key
+.env
+# runtime
+ledger.db
+__pycache__/
+.venv/
+*.pyc
