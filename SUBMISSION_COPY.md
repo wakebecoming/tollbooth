@@ -28,7 +28,7 @@ protection. Confirm against the actual track list on the form.
 ## What's proven
 
 - Full paid loop live on Base Sepolia: 402 → EIP-3009 sign → facilitator
-  settle → 200 with spec-shaped brief + receipt (6 on-chain settlements,
+  settle → 200 with spec-shaped brief + receipt (7 on-chain settlements,
   independently verifiable on Basescan Sepolia — links in README).
 - Exactly $2.00 charged per purchase; replay of a consumed signature →
   **409** with byte-identical brief and unchanged buyer balance (no
