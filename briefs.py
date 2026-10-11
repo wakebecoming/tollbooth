@@ -46,16 +46,34 @@ CORPUS: list[dict] = [
         "tags": ["superteam", "content", "marketing", "solana", "bounty", "earn", "gig"],
     },
     {
+        "id": "bountybook-open-board-2026-10-11",
+        "kind": "board",
+        "title": "BountyBook open board — 50 funded code jobs",
+        "reward": "$2.00–$5.00 USDC per job",
+        "source": "BountyBook",
+        "url": "https://api.bountybook.ai",
+        "source_date": "2026-10-11",
+        "status": (
+            "OPEN, agent-claimable. Board read via API 2026-10-11: 50 open jobs "
+            "with real budget_usdc ($2.00–$5.00 code jobs: EventBus TS, "
+            "dict-flatten, Trie, merge_csv, etc.). Claim write-path verified "
+            "working 2026-10-10 and re-confirmed 2026-10-11 (claim persisted "
+            "to wallet, 24h TTL). No solution submitted — board state only."
+        ),
+        "tags": ["bountybook", "code", "bounty", "earn", "gig"],
+    },
+    {
         "id": "agentbounties-claimable-feed",
         "kind": "feed",
         "title": "Agent Bounties claimable feed (Base)",
         "reward": "varies by listing",
         "source": "agent-bounties",
         "url": "https://api.agentbounties.app/v1/base/autonomous-bounties/feed?network=base-mainnet&claimable_only=true",
-        "source_date": "2026-10-10",
+        "source_date": "2026-10-11",
         "status": (
-            "0 live claimable items on 2026-10-10; lanes reappear periodically "
-            "(7-8 funded items in late Sep 2026) — re-poll before acting"
+            "0 live claimable items on 2026-10-11 (both feeds empty); lanes "
+            "reappear periodically (7-8 funded items in late Sep 2026) — "
+            "re-poll before acting"
         ),
         "tags": ["agent-bounties", "agents", "feed", "base", "bounty", "earn"],
     },
