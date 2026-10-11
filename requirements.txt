@@ -1,5 +1,9 @@
 # x402 core + FastAPI server + EVM schemes (official SDK, v2)
 x402[fastapi,evm]==2.25.0
+# Solana (SVM) exact scheme for the thin Solana-devnet lane
+x402[svm]==2.25.0
+# solders for Solana keypair generation (payTo wallet)
+solders==0.29.0
 fastapi==0.142.4
 uvicorn[standard]==0.38.0
 # wallet / signing for buyer script + test wallet generation

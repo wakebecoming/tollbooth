@@ -72,6 +72,7 @@ timeout to 120s (upfront settlement needs both) — see `buyer.py`.
 | Method | Route | Auth | Description |
 |---|---|---|---|
 | POST | `/brief/order` | **$2.00 USDC** (x402) | Order a brief. Body: `{"topic": str, "nonce": str}`, both required non-empty. Returns the spec-shaped brief + receipt. |
+| POST | `/solana/brief/order` | **$2.00 USDC** (x402, Solana devnet) | Same brief engine on the thin Solana lane. **Experimental** — settlement not yet proven end-to-end. |
 | GET | `/catalog` | free | Topic list for brief orders. |
 | GET | `/v1/brief/sample` | free | Redacted sample of the brief shape. |
 | GET | `/health` | free | Liveness + ledger stats. |
@@ -141,8 +142,9 @@ buyer balance is unchanged (no second charge) — verified live.
 ## Repo layout
 
 ```
-app.py              FastAPI app, x402 wiring, replay guard, 400-before-money
+app.py              FastAPI app, x402 wiring (EVM + SVM), replay guard, 400-before-money
 briefs.py           deterministic brief engine (spec v1)
+solana_lane.py      thin Solana-devnet lane constants + SVM idempotency (experimental)
 ledger.py           SQLite idempotency ledger + settled-signature table
 buyer.py            demo buyer (x402Client + EthAccountSigner)
 envfix.py           VM quirk: sanitize no_proxy before httpx loads

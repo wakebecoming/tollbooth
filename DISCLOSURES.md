@@ -50,9 +50,14 @@ registrant owns the account, the team profile, and the submission click.
 
 - **Base Sepolia is the proven lane**: full paid loop verified live
   (402 → sign → settle → 200, replay → 409).
-- **Solana lane: not yet present.** There is no Solana route, wallet, or
-  settlement path in this tree. Any Solana presence in the submission is
-  roadmap, not product.
+- **Solana lane: present, experimental.** `POST /solana/brief/order` serves a
+  real x402 v2 `exact` 402 challenge on Solana devnet
+  (`solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1`, devnet USDC
+  `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`, $2.00) with the same
+  deterministic brief engine and ledger semantics as the Base lane. Settlement
+  on this lane is **not yet proven end-to-end** (devnet RPC was unreachable
+  from the build environment); it is labeled `experimental` in the manifest,
+  catalog, and code. Base Sepolia remains the proven demo path.
 
 ## What this is not
 

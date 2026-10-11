@@ -133,6 +133,18 @@ now lists `brief_order` + `catalog`. Existing `/v1/brief`, `/v1/brief/sample`,
 - Prior live settlements: `0xbba94459…`, `0x2f7cbcc1…`, `0x4dadf199…`, `0xfe41b466…`
   (all Base Sepolia).
 
+**2026-10-11: judge-path rehearsal on the refactored (laned) code:**
+- Live (`test_live_brief.py`, Base Sepolia, real test-USDC): 402 -> sign ->
+  200 with spec-shaped brief + receipt (echo matched, `settleTx=0xf48e14d3…`,
+  exactly $2.00 charged: 6.00 -> 4.00); replay of the identical signature ->
+  **409** with byte-identical brief and original receipt; balance unchanged
+  after replay (no new charge). Receipt verified field-for-field: network
+  `eip155:84532`, asset `0x036CbD53842c5426634e7929541eC2318f3dCF7e`,
+  explorer URL `https://sepolia.basescan.org/tx/0xf48e14d3…`.
+- The Solana-lane refactor (shared `_serve_brief_order`, lane-parameterized
+  receipts, extended `_nonce_from_payload`) changed nothing on the Base path:
+  32/32 unit tests still green, live purchase + replay identical semantics.
+
 **Spec deviations (honest, documented):**
 - Facilitator URL: spec names `https://facilitator.x402.org`, but it does not
   resolve from this environment (connection failed); kept the proven
@@ -154,6 +166,24 @@ cd build/tollbooth
 
 Test wallet (payTo, Base Sepolia): `0xD18A5d9dBa628D489aA301E95056049CA33999B0`
 — key in `wallets/test-payto.json` (gitignored, chmod 600). TESTNET ONLY.
+
+## 2026-10-11: thin Solana lane (`POST /solana/brief/order`, experimental)
+
+Depth stays on Base Sepolia. The Solana lane is thin and honest: a real x402
+v2 `exact` 402 challenge on Solana devnet (`solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1`,
+USDC mint `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`, $2.00, real devnet
+payTo `87GaH47ytRBPBSwVu4CPKom3L5q7z29pjBL1ewpbmnMg`), the same deterministic
+brief engine, the same ledger semantics (`settled -> delivered`, exactly-once;
+Solana idempotency key = `sol:` + first tx signature hex). New module
+`solana_lane.py`; `app.py` registers `ExactSvmScheme` (from `x402[svm]`) and
+shares one `_serve_brief_order` handler across lanes; manifest + catalog list
+the lane with `"status": "experimental"`.
+
+Settlement on this lane is NOT yet proven: Solana devnet RPC was unreachable
+from this environment (empty responses through the egress proxy), so no buyer
+funding or live purchase was possible. The lane is labeled experimental in the
+manifest, catalog, route description, and module docstring. Base Sepolia
+remains the proven demo path.
 
 ## Not done / decisions for later
 

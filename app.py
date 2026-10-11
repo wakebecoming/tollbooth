@@ -445,6 +445,23 @@ async def catalog():
             "asset": USDC_BASE_SEPOLIA,
             "topics": CATALOG_TOPICS,
             "note": "Example topics. Any non-empty topic string is accepted; items are matched deterministically from the watch-log corpus, or the items section is honestly omitted.",
+            "lanes": (
+                [
+                    {
+                        "path": "/brief/order",
+                        "network": NETWORK,
+                        "status": "live",
+                    },
+                    {
+                        "path": "/solana/brief/order",
+                        "network": SOLANA_NETWORK,
+                        "status": "experimental",
+                        "note": "Solana devnet lane: real x402 v2 exact challenge, same brief engine; settlement not yet proven end-to-end.",
+                    },
+                ]
+                if SOLANA_ENABLED
+                else [{"path": "/brief/order", "network": NETWORK, "status": "live"}]
+            ),
         }
     )
 
@@ -457,23 +474,18 @@ async def sample():
 
 @app.get("/.well-known/x402")
 async def manifest():
-    return JSONResponse(
-        {
-            "operator": "wakeandnorth",
-            "description": "Paid earn-first brief endpoint: an agent pays 2 USDC and receives a bounty/opportunity brief with claim-level citations and on-chain delivery attestation.",
-            "x402_version": 2,
-            "endpoints": {
-                "brief": {
-                    "method": "POST",
-                    "path": "/v1/brief",
-                    "scheme": "exact",
-                    "price": PRICE,
-                    "network": NETWORK,
-                    "asset": USDC_BASE_SEPOLIA,
-                    "payTo": PAY_TO,
-                    "paymentFlow": "upfront",
-                    "maxTimeoutSeconds": MAX_TIMEOUT_SECONDS,
-                },
+    endpoints = {
+        "brief": {
+            "method": "POST",
+            "path": "/v1/brief",
+            "scheme": "exact",
+            "price": PRICE,
+            "network": NETWORK,
+            "asset": USDC_BASE_SEPOLIA,
+            "payTo": PAY_TO,
+            "paymentFlow": "upfront",
+            "maxTimeoutSeconds": MAX_TIMEOUT_SECONDS,
+        },
                 "brief_order": {
                     "method": "POST",
                     "path": "/brief/order",
@@ -489,7 +501,29 @@ async def manifest():
                 },
                 "catalog": {"method": "GET", "path": "/catalog", "price": "free"},
                 "sample": {"method": "GET", "path": "/v1/brief/sample", "price": "free"},
-            },
+    }
+    if SOLANA_ENABLED:
+        endpoints["solana_brief_order"] = {
+            "method": "POST",
+            "path": "/solana/brief/order",
+            "scheme": "exact",
+            "price": _SOL["price"],
+            "network": SOLANA_NETWORK,
+            "asset": USDC_SOLANA_DEVNET,
+            "payTo": _SOL["payTo"],
+            "paymentFlow": "upfront",
+            "maxTimeoutSeconds": MAX_TIMEOUT_SECONDS,
+            "status": "experimental",
+            "note": _SOL["lane_note"],
+            "body": {"topic": "str (required, non-empty)", "nonce": "str (required, non-empty)"},
+            "spec": "v1 deterministic brief per (topic, nonce)",
+        }
+    return JSONResponse(
+        {
+            "operator": "wakeandnorth",
+            "description": "Paid earn-first brief endpoint: an agent pays 2 USDC and receives a bounty/opportunity brief with claim-level citations and on-chain delivery attestation.",
+            "x402_version": 2,
+            "endpoints": endpoints,
             "facilitator": FACILITATOR_URL,
             "receipt": "PAYMENT-RESPONSE header + receipt object in brief JSON body",
         }
